@@ -10,4 +10,16 @@ public class TestController {
     public String signin(){
         return "login.html";
     }
+
+    @GetMapping("/signup")
+    public String signup(){
+        return "signup.html";
+    }
+
+    @GetMapping("/welcome")
+    public String welcome(){
+        return "welcome.html";
+    }
+
+
 }

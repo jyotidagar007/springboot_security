@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.net.Authenticator;
 
@@ -32,15 +33,25 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/signin").permitAll()
+                .antMatchers("/signup").permitAll()
                 .antMatchers("/public/**").hasRole("NORMAL")
                 .antMatchers("/users/**").hasRole("ADMIN")
+                .antMatchers("/welcome").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/signin")
                 .loginProcessingUrl("/dologin")
-                .defaultSuccessUrl("/users/");
+                .defaultSuccessUrl("/welcome")
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/signin?logout")
+                .permitAll();
+
                // .httpBasic();
     }
 

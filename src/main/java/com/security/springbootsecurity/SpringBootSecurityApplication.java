@@ -31,7 +31,7 @@ public class SpringBootSecurityApplication implements CommandLineRunner {
 		this.userRepository.save(user);
 
 		User user1 = new User();
-		user1.setUserName("johm");
+		user1.setUserName("john");
 		user1.setEmail("john@example.com");
 		user1.setPassword(this.bCryptPasswordEncoder.encode("john"));
 		user1.setRole("ROLE_NORMAL");
