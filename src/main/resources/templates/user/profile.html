@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Update Profile</title>
+
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous">
+
+    <!--     JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-light" style="background-color: lightgrey">
+    <ul class="nav nav-pills">
+
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/task/list}">TASK LIST</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link"  th:href="@{/task/create}">NEW TASK</a>
+        </li>
+
+        <li class="nav-item dropdown" style="position: fixed; right:2%; ">
+            <a class="nav-link dropdown-toggle active" aria-current="page" data-bs-toggle="dropdown"  role="button" aria-expanded="false">Settings</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/user/profile}">Profle</a></li>
+                <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<br>
+<!-- Create HTML registration form -->
+<div class="container" style="margin-left: 30%">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1 style="font-family: Arial,serif; text-align: center">UPDATE PROFILE</h1><br>
+
+            <form name="register" action = "/register" method="post">
+                <div class="form-group">
+                    <label class="control-label" for="firstName"> First Name </label>
+                    <input type="text" id="firstName"  class="form-control"  name="firstName"
+                           required autofocus="autofocus" />
+                </div><br>
+
+                <div class="form-group">
+                    <label class="control-label" for="lastName"> Last Name </label> <input
+                        type="text" id="lastName" class="form-control" name="lastName"
+                        required autofocus="autofocus" />
+                </div><br>
+
+                <div class="form-group">
+                    <label class="control-label" for="password"> Password </label> <input
+                        id="password" class="form-control" type="password" name="password"
+                        required autofocus="autofocus" />
+                </div><br>
+
+                <div class="form-group">
+                    <label class="control-label" for="con_password">Confirm Password</label> <input
+                        id="con_password" class="form-control" type="password"
+                        required autofocus="autofocus" />
+                </div><br>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" style="margin-left: 45%;">Submit</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

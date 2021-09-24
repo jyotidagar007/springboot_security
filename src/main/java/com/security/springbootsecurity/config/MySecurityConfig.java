@@ -1,22 +1,16 @@
 package com.security.springbootsecurity.config;
 
 
-import com.security.springbootsecurity.models.CustomUserDetails;
-import com.security.springbootsecurity.services.CustomUserDetailsService;
+import com.security.springbootsecurity.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import java.net.Authenticator;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +18,7 @@ import java.net.Authenticator;
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private UserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -34,8 +28,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/signin").permitAll()
                 .antMatchers("/signup").permitAll()
-                .antMatchers("/public/**").hasRole("NORMAL")
-                .antMatchers("/users/**").hasRole("ADMIN")
+                .antMatchers("/register").permitAll()
                 .antMatchers("/welcome").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -43,7 +36,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/signin")
                 .loginProcessingUrl("/dologin")
-                .defaultSuccessUrl("/welcome")
+                .defaultSuccessUrl("/task/list")
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
@@ -57,10 +50,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("john").password(this.bCryptPasswordEncoder().encode("abc")).roles("NORMAL");
-//        auth.inMemoryAuthentication().withUser("jyoti").password(this.bCryptPasswordEncoder().encode("xyz")).roles("ADMIN");
 
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean

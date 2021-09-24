@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="ISO-8859-1">
     <title>signup</title>
@@ -10,8 +10,9 @@
 </head>
 <body>
 
+
 <!-- create navigation bar ( header) -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: black">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed"
@@ -32,40 +33,45 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-            <!-- success message -->
-<!--            <div th:if="${param.success}">-->
-<!--                <div class="alert alert-info">You've successfully registered!</div>-->
-<!--            </div>-->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">You've successfully registered!</div>
+            </div>
 
-            <h1>SignUp</h1>
+            <h1 style="font-family: Arial,serif"><b>SIGN UP</b></h1><br>
 
-            <form th:action="@{/signup}" method="post">
+            <form id="register" name="register" action = "/register" method="post">
                 <div class="form-group">
                     <label class="control-label" for="firstName"> First Name </label>
-                    <input id="firstName" class="form-control"
+                    <input type="text" id="firstName" class="form-control"  name="firstName"
                            required autofocus="autofocus" />
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="lastName"> Last Name </label> <input
-                        id="lastName" class="form-control"
+                       type="text" id="lastName" class="form-control" name="lastName"
                         required autofocus="autofocus" />
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="username"> Username </label> <input
-                        id="username" class="form-control" required
+                        type="text" id="username" class="form-control" name="username" required
                         autofocus="autofocus" />
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="password"> Password </label> <input
-                        id="password" class="form-control" type="password"
+                        id="password" class="form-control" type="password" name="password"
                         required autofocus="autofocus" />
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">SignUp</button>
+                    <label class="control-label" for="con_password">Confirm Password</label> <input
+                        id="con_password" class="form-control" type="password" name="con_password"
+                        required autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success" onclick="verify()">SignUp</button>
                     <span>Already registered? <a href="/" th:href="@{/login}">Login
 								here</a></span>
                 </div>
@@ -74,4 +80,22 @@
     </div>
 </div>
 </body>
+
+<script>
+    function verify()
+    {
+        let pw = document.getElementsById("password").value;
+        let conPW = document.getElementsById("con_password").value;
+
+        if(pw == conPW)
+        {
+            document.getElementById("register").submit();
+        }
+        else
+        {
+            alert("Password doesn't match.");
+            return;
+        }
+    }
+</script>
 </html>

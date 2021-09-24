@@ -9,32 +9,32 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class SpringBootSecurityApplication implements CommandLineRunner {
+public class SpringBootSecurityApplication{
 
-	@Autowired
-	private UserRepository userRepository;
-    @Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+//	@Autowired
+//	private UserRepository userRepository;
+//    @Autowired
+//	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootSecurityApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception{
+	//@Override
+	//public void run(String... args) throws Exception{
 
-		User user = new User();
-		user.setUserName("jyoti");
-		user.setEmail("jyoti@example.com");
-		user.setPassword(this.bCryptPasswordEncoder.encode("jyoti"));
-		user.setRole("ROLE_ADMIN");
-		this.userRepository.save(user);
-
-		User user1 = new User();
-		user1.setUserName("john");
-		user1.setEmail("john@example.com");
-		user1.setPassword(this.bCryptPasswordEncoder.encode("john"));
-		user1.setRole("ROLE_NORMAL");
-		this.userRepository.save(user1);
-	}
+//		User user = new User();
+//		user.setUsername("jyoti");
+//		user.setEmail("jyoti@example.com");
+//		user.setPassword(this.bCryptPasswordEncoder.encode("jyoti"));
+//		user.setRole("ROLE_ADMIN");
+//		this.userRepository.save(user);
+//
+//		User user1 = new User();
+//		user1.setUserName("john");
+//		user1.setEmail("john@example.com");
+//		user1.setPassword(this.bCryptPasswordEncoder.encode("john"));
+//		user1.setRole("ROLE_NORMAL");
+//		this.userRepository.save(user1);
+//	}
 }

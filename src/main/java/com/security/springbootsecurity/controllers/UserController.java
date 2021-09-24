@@ -1,37 +1,53 @@
 package com.security.springbootsecurity.controllers;
 
-
+import com.security.springbootsecurity.dto.UserRegistrationDto;
 import com.security.springbootsecurity.models.User;
 import com.security.springbootsecurity.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/users")
+@Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
-    
-    @GetMapping("/")
-    public List<User> getAllUsers()
-    {
-        return this.userService.getAllUsers();
+
+    @GetMapping("/signin")
+    public String signin(){
+        return "user/login.html";
     }
 
-   // @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/{username}")
-    public User getUser(@PathVariable("username") String username)
-    {
-        return this.userService.getUser(username);
+    @GetMapping("/signup")
+    public String signup(){
+        return "user/signup.html";
     }
 
-    @PostMapping("/")
-    public User add(@RequestBody User user)
+    @PostMapping("/register")
+    public String register(UserRegistrationDto registrationDto)
     {
-        return this.userService.addUser(user);
+        userService.save(registrationDto);
+        return  registrationDto.getUsername() != null ? "redirect:/signin" : "user/profile.html";
     }
+
+    @GetMapping("/user/profile")
+    public String profile(){
+        return "user/profile.html";
+    }
+
+//    @GetMapping("/user")
+//    public List<User> getAllUsers()
+//    {
+//        return userService.getAllUsers();
+//    }
+
+    //    @GetMapping("/{username}")
+//    public User getUser(@PathVariable("username") String username)
+//    {
+//        return this.userService.getUser(username);
+//    }
+
+
 }

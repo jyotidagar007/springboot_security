@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Task</title>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous">
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-light" style="background-color: lightgrey">
+
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/task/list}">TASK LIST</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link"  th:href="@{/task/create}">NEW TASK</a>
+        </li>
+
+        <li class="nav-item dropdown" style="position: fixed; right:2%; ">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Settings</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/user/profile}">Profle</a></li>
+                <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<br>
+
+<div class="container">
+    <form name="newTask" action = "/task/new" method="post" autocomplete="off" style="margin-top: 1%; margin-left: 35%">
+        <div class="mb-3 col-sm-6">
+            <h1>Update Task</h1>
+        </div>
+        <div class="mb-3 col-sm-6">
+<!--            <label for="title" class="form-label">Title</label>-->
+            <input type="text" name="title" class="form-control" id="title" placeholder="Title...">
+        </div>
+        <div class="mb-3 col-sm-6">
+<!--            <label for="desc" class="form-label">Description</label>-->
+            <textarea class="form-control" name="desc" id="desc" rows="5" placeholder="DESCRIPTION..."></textarea>
+        </div>
+        <div class="mb-3 col-sm-6">
+<!--            <label for="priority" class="form-label">PRIORITY</label>-->
+            <select id="priority" name="priority" class="form-select">
+                <option>Choose Priority</option>
+                <option>High Priority</option>
+                <option>Medium Priority</option>
+                <option>Low Priority</option>
+            </select>
+        </div><br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <a th:href="@{/task/list}"> Back to Task List</a>
+    </form>
+</div>
+</body>
+</html>
