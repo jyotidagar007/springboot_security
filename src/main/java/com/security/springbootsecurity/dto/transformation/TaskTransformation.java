@@ -14,7 +14,9 @@ public class TaskTransformation {
 
         TaskDto taskDTO = new TaskDto();
 
+        taskDTO.setId(task.getId());
         taskDTO.setTitle(task.getTitle());
+        taskDTO.setCreatedDate(task.getCreatedDate());
         taskDTO.setDesc(task.getDesc());
         taskDTO.setTag(task.getTag());
         taskDTO.setPriority(task.getPriority());
@@ -33,9 +35,9 @@ public class TaskTransformation {
         return taskDTO;
     }
 
-    public static List<TaskDto> fromEntity(Page<Task> page) {
+    public static List<TaskDto> fromEntity(List<Task> list) {
 
-        List<Task> list = page.getContent();
+//        List<Task> list = page.getContent();
 
         List<TaskDto> listDTO = new ArrayList<>();
 

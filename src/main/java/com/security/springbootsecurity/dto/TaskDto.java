@@ -1,10 +1,13 @@
 package com.security.springbootsecurity.dto;
 
+import java.util.Date;
 import java.util.List;
 
 public class TaskDto {
 
     private String id;
+
+    public Date createdDate;
 
     private String title;
 
@@ -21,13 +24,22 @@ public class TaskDto {
     public TaskDto() {
     }
 
-    public TaskDto(String id, String title, String desc, String tag, String priority) {
+    public TaskDto(String id, String title, String desc, String tag, String priority, Date createdDate) {
         this.id = id;
         this.title = title;
         this.desc = desc;
         this.tag = tag;
      //   this.tagIds = tagIds;
         this.priority = priority;
+        this.createdDate = createdDate;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getId() {

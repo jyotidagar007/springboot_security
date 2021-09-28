@@ -6,10 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name="user")
@@ -25,32 +22,44 @@ public class User implements UserDetails {
     String firstName;
     String lastName;
     String password;
-    String role = "ROLE_ADMIN";
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Task> tasks= new ArrayList();
 
-    public User() {
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+    public User() {
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        HashSet<SimpleGrantedAuthority> set = new HashSet<>();
-        set.add(new SimpleGrantedAuthority(this.getRole()));
-        return set;
+        Set<Role> roles = this.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+
+        return authorities;
     }
 
-
-    public User(String firstName, String lastName, String username, String password, String role) {
+    public User(String firstName, String lastName, String username, String password, Set<Role> roles) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
-
 
     public String getUsername() {
         return username;
@@ -84,14 +93,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getId() {
         return id;
     }
@@ -108,6 +109,13 @@ public class User implements UserDetails {
         this.tasks = tasks;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

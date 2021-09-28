@@ -122,4 +122,9 @@ public class TaskService {
         }
         return task;
     }
+
+    public List<TaskDto> findAll() {
+        List<Task> task = repository.findAll();
+        return TaskTransformation.fromEntity(task);
+    }
 }

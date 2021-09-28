@@ -37,6 +37,14 @@ public class UserController {
         return "user/profile.html";
     }
 
+
+    @DeleteMapping("user/delete")
+    public String deleteUser()
+    {
+        userService.deleteTask();
+        return "user/login.html";
+    }
+
 //    @GetMapping("/user")
 //    public List<User> getAllUsers()
 //    {

@@ -1,5 +1,6 @@
 package com.security.springbootsecurity.controllers;
 
+import com.fasterxml.jackson.core.io.JsonStringEncoder;
 import com.security.springbootsecurity.dto.TaskDto;
 import com.security.springbootsecurity.models.Task;
 import com.security.springbootsecurity.models.User;
@@ -8,6 +9,7 @@ import com.security.springbootsecurity.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,11 +24,15 @@ public class TaskController {
 
 
     @GetMapping("/list")
-    public String getList(Model model) {
-             List<Task> allTasks = taskService.getAllTask();
-             model.addAttribute("listTask", allTasks);
+    public String getList() {
         return "task/list.html";
   }
+    @ResponseBody
+    @GetMapping(value="/listJson", produces = "application/json")
+    public List<TaskDto> getListJson() {
+        List<TaskDto> dto = taskService.findAll();
+         return dto;
+    }
 
     @GetMapping( "/create")
     public String createTask() {
